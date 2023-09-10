@@ -1,0 +1,16 @@
+---
+- name: "Converge"
+  hosts: "all"
+  tasks:
+    # replace these tasks with whatever you find suitable to test
+    - name: "Copy something to test use of synchronize module"
+      ansible.builtin.copy:
+        src: "/etc/hosts"
+        dest: "/tmp/hosts-from-controller"
+        mode: 0700
+
+    - name: "Include labocbz.install_nexus_repository"
+      tags:
+        - "labocbz.install_nexus_repository"
+      ansible.builtin.include_role:
+        name: "labocbz.install_nexus_repository"
