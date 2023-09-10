@@ -138,6 +138,9 @@ Here you can put your change to keep a trace of your work and decisions.
 ### 2023-09-10: First Init
 
 * First init of this role with the bootstrap_role playbook by Lord Robin Crombez
+* Role download sources, create service file, enable and start it
+* Custom user is possible
+* Service dont really start, need work on JVM
 
 ## Authors
 
@@ -147,3 +150,5 @@ Here you can put your change to keep a trace of your work and decisions.
 
 * [Ansible role documentation](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html)
 * [Ansible Molecule documentation](https://molecule.readthedocs.io/)
+* [Download Sonatype Nexus Repository](https://help.sonatype.com/repomanager3/product-information/download)
+* [Run as a Service](https://help.sonatype.com/repomanager3/installation-and-upgrades/run-as-a-service)

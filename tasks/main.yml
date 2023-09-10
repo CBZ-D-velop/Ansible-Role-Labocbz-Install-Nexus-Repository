@@ -1,1 +1,58 @@
 ---
+- name: "Install Nexus Repository Manager"
+  notify:
+    - "Enable and start Nexus"
+    - "Restart Nexus"
+  block:
+    - name: "Check if install dir exist"
+      register: file_check
+      ansible.builtin.stat:
+        path: "{{ install_nexus_repository_install_path }}"
+
+    - name: "Create install dir"
+      when: not file_check.stat.exists
+      ansible.builtin.file:
+        path: "{{ install_nexus_repository_install_path }}"
+        state: directory
+        recurse: yes
+        mode: "0700"
+        group: "{{ install_nexus_repository_system_group }}"
+        owner: "{{ install_nexus_repository_system_user }}"
+
+    - name: "Download defined version of Nexus Repository Manager and install it: {{ install_nexus_repository_version }}"
+      ansible.builtin.unarchive:
+        src: "https://download.sonatype.com/nexus/3/nexus-{{ install_nexus_repository_version }}-unix.tar.gz"
+        dest: "{{ install_nexus_repository_install_path }}"
+        remote_src: yes
+        mode: "0700"
+        group: "{{ install_nexus_repository_system_group }}"
+        owner: "{{ install_nexus_repository_system_user }}"
+        exclude: 
+          - "*nexus.rc"
+          - "*nexus.vmoptions"
+
+    - name: "Import nexus.rc"
+      ansible.builtin.template:
+        src: "templates/nexus.rc.j2"
+        dest: "{{ install_nexus_repository_install_dir }}/bin/nexus.rc"
+        mode: "0700"
+        group: "{{ install_nexus_repository_system_group }}"
+        owner: "{{ install_nexus_repository_system_user }}"
+        lstrip_blocks: yes
+
+    - name: "Import nexus.vmoptions"
+      ansible.builtin.template:
+        src: "templates/nexus.vmoptions.j2"
+        dest: "{{ install_nexus_repository_install_dir }}/bin/nexus.vmoptions"
+        mode: "0700"
+        group: "{{ install_nexus_repository_system_group }}"
+        owner: "{{ install_nexus_repository_system_user }}"
+        lstrip_blocks: yes
+
+    - name: "Import Nexus Repository service file"
+      ansible.builtin.template:
+        src: "templates/nexus.service.j2"
+        dest: "/etc/systemd/system/nexus.service"
+        owner: "root"
+        group: "root"
+        mode: "0700"
