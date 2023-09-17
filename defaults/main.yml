@@ -1,6 +1,6 @@
 ---
 install_nexus_repository_version: "3.60.0-02"
-install_nexus_repository_install_path: "/usr/local/nexus/nexus-{{ install_nexus_repository_version }}"
+install_nexus_repository_install_path: "/usr/share/nexus/nexus-{{ install_nexus_repository_version }}"
 install_nexus_repository_install_dir: "{{ install_nexus_repository_install_path }}/nexus-{{ install_nexus_repository_version }}"
 install_nexus_repository_ssl_path: "{{ install_nexus_repository_install_dir }}/etc/ssl"
 

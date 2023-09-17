@@ -31,6 +31,15 @@
           - "*nexus.rc"
           - "*nexus.vmoptions"
 
+    - name: "Set permissions"
+      ansible.builtin.file:
+        path: "{{ install_nexus_repository_install_path }}"
+        state: directory
+        recurse: yes
+        mode: "0700"
+        group: "{{ install_nexus_repository_system_group }}"
+        owner: "{{ install_nexus_repository_system_user }}"
+
     - name: "Import nexus.rc"
       ansible.builtin.template:
         src: "templates/nexus.rc.j2"
@@ -48,6 +57,16 @@
         group: "{{ install_nexus_repository_system_group }}"
         owner: "{{ install_nexus_repository_system_user }}"
         lstrip_blocks: yes
+
+    - name: "Add a java-{{ java_version }} in /usr/bin and /bin for Java {{ java_version }}"
+      ansible.builtin.file:
+        dest: "{{ install_nexus_repository_install_dir }}/jre"
+        src: "/usr/lib/jvm/java-8-openjdk-amd64/jre"
+        state: link
+        mode: "0700"
+        group: "{{ install_nexus_repository_system_group }}"
+        owner: "{{ install_nexus_repository_system_user }}"
+        force: yes
 
     - name: "Import Nexus Repository service file"
       ansible.builtin.template:

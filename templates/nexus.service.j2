@@ -19,6 +19,7 @@ User={{ install_nexus_repository_system_user }}
 Group={{ install_nexus_repository_system_group }}
 Restart=on-failure
 TimeoutSec=600
+Environment=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/bin
 
 [Install]
 WantedBy=multi-user.target

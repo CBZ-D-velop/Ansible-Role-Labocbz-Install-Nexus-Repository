@@ -4,16 +4,16 @@
 -XX:MaxDirectMemorySize={{ install_nexus_repository_xmx }}
 -XX:+UnlockDiagnosticVMOptions
 -XX:+LogVMOutput
--XX:LogFile=../sonatype-work/nexus3/log/jvm.log
+-XX:LogFile=./sonatype-work/nexus3/log/nexus.log
 -XX:-OmitStackTraceInFastThrow
 -Djava.net.preferIPv4Stack=true
 -Dkaraf.home=.
 -Dkaraf.base=.
 -Dkaraf.etc=etc/karaf
 -Djava.util.logging.config.file=etc/karaf/java.util.logging.properties
--Dkaraf.data=../sonatype-work/nexus3
--Dkaraf.log=../sonatype-work/nexus3/log
--Djava.io.tmpdir=../sonatype-work/nexus3/tmp
+-Dkaraf.data=./sonatype-work/nexus3
+-Dkaraf.log=./sonatype-work/nexus3/log
+-Djava.io.tmpdir=./sonatype-work/nexus3/tmp
 -Dkaraf.startLocalConsole=false
 -Djdk.tls.ephemeralDHKeySize=2048
 -Dinstall4j.pidDir={{ install_nexus_repository_install_dir }}
