@@ -19,8 +19,8 @@
 - name: "Install Nexus"
   community.docker.docker_container:
     name: "{{ install_nexus_repository_container_name }}"
-    image: "sonatype/docker-nexus3"
-    state: "present"
+    image: "sonatype/nexus3:latest"
+    state: "started"
     recreate: false
     restart_policy: "always"
     ports:
@@ -30,3 +30,4 @@
       - "{{ install_nexus_repository_data_path }}:/nexus-data"
     env:
       JAVA_MAX_MEM: "{{ install_nexus_repository_heap }}"
+      INSTALL4J_ADD_VM_PARAMS: "-Xms{{ install_nexus_repository_heap }} -Xmx{{ install_nexus_repository_heap }} -XX:MaxDirectMemorySize={{ install_nexus_repository_heap }} -Djava.util.prefs.userRoot=/nexus-data/javaprefs"
