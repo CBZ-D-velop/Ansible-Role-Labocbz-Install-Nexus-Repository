@@ -1,5 +1,9 @@
 ---
-inv_prepare_host_users:
-  - login: "nexus"
-    group: "nexus"
-    sudoer: true
+inv_install_nexus_repository_container_name: "nexus"
+inv_install_nexus_repository_data_path: "/mnt/nexus-data"
+inv_install_nexus_repository_heap: "4096m"
+
+inv_install_nexus_repository_web_address: "0.0.0.0"
+inv_install_nexus_repository_web_port: 8081
+inv_install_nexus_repository_web_port_min: 8082
+inv_install_nexus_repository_web_port_max: 8100

@@ -5,14 +5,12 @@
   gather_facts: true
   tasks:
 
-    - name: "Include cryptographic content var file"
-      ansible.builtin.include_vars: "../../tests/certs/main.yml"
+    #- name: "Include cryptographic content var file"
+    #  ansible.builtin.include_vars: "../../tests/certs/main.yml"
 
     - name: "Include labocbz.prepare_host"
       tags:
         - "labocbz.prepare_host"
-      vars:
-        prepare_host_users: "{{ inv_prepare_host_users }}"
       ansible.builtin.include_role:
         name: "labocbz.prepare_host"
 
@@ -30,56 +28,75 @@
       changed_when: output.rc != 0
       ansible.builtin.shell: "echo \"{{ hostvars[host]['ansible_default_ipv4']['address'] }}  {{ host }} # from Molecule\" >> /etc/hosts"
 
-    - name: "Import cryptographic content if needed (cert)"
-      loop: "{{ inv_cert_bundles }}"
-      loop_control:
-        loop_var: bundle
-      when: inv_cert_bundles is defined and bundle.type == "cert"
-      ansible.builtin.copy:
-        src: "../../tests/certs/{{ bundle.name }}.zip"
-        dest: "/tmp/{{ bundle.name }}.zip"
-        owner: "root"
-        group: "root"
-        mode: 0700
+    #- name: "Import cryptographic content if needed (cert)"
+    #  loop: "{{ inv_cert_bundles }}"
+    #  loop_control:
+    #    loop_var: bundle
+    #  when: inv_cert_bundles is defined and bundle.type == "cert"
+    #  ansible.builtin.copy:
+    #    src: "../../tests/certs/{{ bundle.name }}.zip"
+    #    dest: "/tmp/{{ bundle.name }}.zip"
+    #    owner: "root"
+    #    group: "root"
+    #    mode: 0700
 
-    - name: "Import cryptographic content if needed (CA)"
-      loop: "{{ inv_cert_bundles }}"
-      loop_control:
-        loop_var: bundle
-      when: inv_cert_bundles is defined and bundle.type == "CA"
-      ansible.builtin.copy:
-        src: "../../tests/certs/{{ bundle.name }}"
-        dest: "/tmp/{{ bundle.name }}"
-        owner: "root"
-        group: "root"
-        mode: 0700
+    #- name: "Import cryptographic content if needed (CA)"
+    #  loop: "{{ inv_cert_bundles }}"
+    #  loop_control:
+    #    loop_var: bundle
+    #  when: inv_cert_bundles is defined and bundle.type == "CA"
+    #  ansible.builtin.copy:
+    #    src: "../../tests/certs/{{ bundle.name }}"
+    #    dest: "/tmp/{{ bundle.name }}"
+    #    owner: "root"
+    #    group: "root"
+    #    mode: 0700
 
-    - name: "Include labocbz.add_certificates"
+    #- name: "Include labocbz.add_certificates"
+    #  tags:
+    #    - "labocbz.add_certificates"
+    #  loop: "{{ inv_cert_bundles }}"
+    #  loop_control:
+    #    loop_var: bundle
+    #  when: inv_cert_bundles is defined
+    #  vars:
+    #    add_certificates_bundle_name: "{{ bundle.name }}"
+    #    add_certificates_bundle_type: "{{ bundle.type }}"
+    #    add_certificates_bundle_src: "{{ bundle.src }}"
+    #    add_certificates_bundle_dest: "{{ bundle.dest }}"
+    #    #add_certificates_bundle_src_user: "{{ bundle.src_user }}"
+    #    #add_certificates_bundle_src_password: "{{ bundle.src_password }}"
+    #    add_certificates_bundle_dest_user: "{{ bundle.dest_user }}"
+    #    add_certificates_bundle_dest_group: "{{ bundle.dest_group }}"
+    #    add_certificates_bundle_dest_mode: "{{ bundle.dest_mode }}"
+    #  ansible.builtin.include_role:
+    #    name: "labocbz.add_certificates"
+
+    - name: "Include labocbz.install_docker"
       tags:
-        - "labocbz.add_certificates"
-      loop: "{{ inv_cert_bundles }}"
-      loop_control:
-        loop_var: bundle
-      when: inv_cert_bundles is defined
+        - "labocbz.install_docker"
       vars:
-        add_certificates_bundle_name: "{{ bundle.name }}"
-        add_certificates_bundle_type: "{{ bundle.type }}"
-        add_certificates_bundle_src: "{{ bundle.src }}"
-        add_certificates_bundle_dest: "{{ bundle.dest }}"
-        #add_certificates_bundle_src_user: "{{ bundle.src_user }}"
-        #add_certificates_bundle_src_password: "{{ bundle.src_password }}"
-        add_certificates_bundle_dest_user: "{{ bundle.dest_user }}"
-        add_certificates_bundle_dest_group: "{{ bundle.dest_group }}"
-        add_certificates_bundle_dest_mode: "{{ bundle.dest_mode }}"
+        install_docker_portainer: "{{ inv_install_docker_portainer }}"
+        install_docker_portainer_http_port: "{{ inv_install_docker_portainer_http_port }}"
+        install_docker_portainer_https_port: "{{ inv_install_docker_portainer_https_port }}"
+        install_docker_portainer_agent_port: "{{ inv_install_docker_portainer_agent_port }}"
+        install_docker_portainer_container_name: "{{ inv_install_docker_portainer_container_name }}"
+        install_docker_portainer_volume_name: "{{ inv_install_docker_portainer_volume_name }}"
+        install_docker_portainer_ssl: "{{ inv_install_docker_portainer_ssl }}"
+        install_docker_portainer_ssl_volume_name: "{{ inv_install_docker_portainer_ssl_volume_name }}"
+        install_docker_portainer_ssl_key: "{{ inv_install_docker_portainer_ssl_cert }}"
+        install_docker_watchtower: "{{ inv_install_docker_watchtower }}"
+        install_docker_watchtower_poll_interval: "{{ inv_install_docker_watchtower_poll_interval }}"
+        install_docker_watchtower_cleanup: "{{ inv_install_docker_watchtower_cleanup }}"
+        install_docker_watchtower_include_restarting: "{{ inv_install_docker_watchtower_include_restarting }}"
+        install_docker_watchtower_include_stopped: "{{ inv_install_docker_watchtower_include_stopped }}"
+        install_docker_watchtower_no_restart: "{{ inv_install_docker_watchtower_no_restart }}"
+        install_docker_portainer_address: "{{ inv_install_docker_portainer_address }}"
+        install_docker_handle_clean: "{{ inv_install_docker_handle_clean }}"
+        install_docker_clean_cron_file: "{{ inv_install_docker_clean_cron_file }}"
+        install_docker_clean_weekday: "{{ inv_install_docker_clean_weekday }}"
+        install_docker_clean_minute: "{{ inv_install_docker_clean_minute }}"
+        install_docker_clean_hour: "{{ inv_install_docker_clean_hour }}"
+        install_docker_insecure_registries: "{{ inv_install_docker_insecure_registries }}"
       ansible.builtin.include_role:
-        name: "labocbz.add_certificates"
-
-    - name: "Include labocbz.install_java"
-      tags:
-        - "labocbz.install_java"
-      vars:
-        java_version: "{{ inv_java_version }}"
-        java_cpu_architecture: "{{ inv_java_cpu_architecture }}"
-        java_version_is_default: true
-      ansible.builtin.include_role:
-        name: "labocbz.install_java"
+        name: "labocbz.install_docker"

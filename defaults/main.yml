@@ -1,9 +1,9 @@
 ---
-install_nexus_repository_version: "3.60.0-02"
-install_nexus_repository_install_path: "/usr/share/nexus/nexus-{{ install_nexus_repository_version }}"
-install_nexus_repository_install_dir: "{{ install_nexus_repository_install_path }}/nexus-{{ install_nexus_repository_version }}"
-install_nexus_repository_ssl_path: "{{ install_nexus_repository_install_dir }}/etc/ssl"
+install_nexus_repository_container_name: "nexus"
+install_nexus_repository_data_path: "/mnt/nexus-data"
+install_nexus_repository_heap: "4096m"
 
-install_nexus_repository_system_user: "nexus"
-install_nexus_repository_system_group: "nexus"
-install_nexus_repository_xmx: "4096"
+install_nexus_repository_web_address: "0.0.0.0"
+install_nexus_repository_web_port: 8081
+install_nexus_repository_web_port_min: 8082
+install_nexus_repository_web_port_max: 8100

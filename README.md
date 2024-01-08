@@ -15,8 +15,11 @@
 ![Tag: Sonatype](https://img.shields.io/badge/Tech-Sonatype-orange)
 ![Tag: Nexus Repository Manager](https://img.shields.io/badge/Tech-Nexus%20Repository%20Manager-orange)
 ![Tag: SSL/TLS](https://img.shields.io/badge/Tech-SSL%2FTLS-orange)
+![Tag: Docker](https://img.shields.io/badge/Tech-Docker-orange)
 
 An Ansible role to install and configure a Nexus Repository Manager (by Sonatype) on your host  
+
+This Ansible role simplifies the deployment of a Nexus3 repository using Docker. The role orchestrates the setup of a Nexus image, configuring it with maximum JVM settings. The Web UI is accessible through a specified address and port, while repository management addresses for Docker, NPM, Gradle, etc., are also defined. It is advisable to implement a reverse proxy in front of Nexus, as SSL is not handled by the solution. Users can customize the location of the data storage folder to suit their preferences.
 
 ## Folder structure
 
@@ -101,7 +104,15 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-your defaults vars here
+install_nexus_repository_container_name: "nexus"
+install_nexus_repository_data_path: "/mnt/nexus-data"
+install_nexus_repository_heap: "4096m"
+
+install_nexus_repository_web_address: "0.0.0.0"
+install_nexus_repository_web_port: 8081
+install_nexus_repository_web_port_min: 8082
+install_nexus_repository_web_port_max: 8100
+
 ```
 
 The best way is to modify these vars by copy the ./default/main.yml file into the ./vars and edit with your personnals requirements.
@@ -113,13 +124,21 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-all vars from to put/from your inventory
+inv_install_nexus_repository_container_name: "nexus"
+inv_install_nexus_repository_data_path: "/mnt/nexus-data"
+inv_install_nexus_repository_heap: "4096m"
+
+inv_install_nexus_repository_web_address: "0.0.0.0"
+inv_install_nexus_repository_web_port: 8081
+inv_install_nexus_repository_web_port_min: 8082
+inv_install_nexus_repository_web_port_max: 8100
+
 ```
 
 ```YAML
 # From AWX / Tower
 ---
-all vars from to put/from AWX / Tower
+
 ```
 
 ### Run
@@ -127,8 +146,19 @@ all vars from to put/from AWX / Tower
 To run this role, you can copy the molecule/default/converge.yml playbook and add it into your playbook:
 
 ```YAML
----
-your converge.yml file here
+- name: "Include labocbz.install_nexus_repository"
+  tags:
+    - "labocbz.install_nexus_repository"
+  vars:
+    inv_install_nexus_repository_container_name: "{{ inv_install_nexus_repository_container_name }}"
+    inv_install_nexus_repository_data_path: "{{ inv_install_nexus_repository_data_path }}"
+    inv_install_nexus_repository_heap: "{{ inv_install_nexus_repository_heap }}"
+    inv_install_nexus_repository_web_address: "{{ inv_install_nexus_repository_web_address }}"
+    inv_install_nexus_repository_web_port: "{{ inv_install_nexus_repository_web_port }}"
+    inv_install_nexus_repository_web_port_min: "{{ inv_install_nexus_repository_web_port_min }}"
+    inv_install_nexus_repository_web_port_max: "{{ inv_install_nexus_repository_web_port_max }}"
+  ansible.builtin.include_role:
+    name: "labocbz.install_nexus_repository"
 ```
 
 ## Architectural Decisions Records
@@ -148,6 +178,13 @@ Here you can put your change to keep a trace of your work and decisions.
 * Molecule now use remote Docker image by Lord Robin Crombez
 * Molecule now use custom Docker image in CI/CD by env vars
 * New CICD with needs and optimization
+
+### 2024-01-08: Install with Docker
+
+* Role use now Docker to deploy the Nexus
+* Role create a path, with root permissions, maybe use an user ?
+* Role expose default web UI (8081) but you can define a custom port / address
+* Role expose a range with port to expose you repositories, with custom address to
 
 ## Authors
 
