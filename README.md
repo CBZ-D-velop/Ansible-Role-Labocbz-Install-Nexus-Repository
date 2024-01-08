@@ -14,7 +14,6 @@
 ![Tag: Debian](https://img.shields.io/badge/Tech-Debian-orange)
 ![Tag: Sonatype](https://img.shields.io/badge/Tech-Sonatype-orange)
 ![Tag: Nexus Repository Manager](https://img.shields.io/badge/Tech-Nexus%20Repository%20Manager-orange)
-![Tag: SSL/TLS](https://img.shields.io/badge/Tech-SSL%2FTLS-orange)
 ![Tag: Docker](https://img.shields.io/badge/Tech-Docker-orange)
 
 An Ansible role to install and configure a Nexus Repository Manager (by Sonatype) on your host  

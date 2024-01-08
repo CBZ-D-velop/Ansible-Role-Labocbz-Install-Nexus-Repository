@@ -28,5 +28,5 @@
       - "{{ install_nexus_repository_web_address }}:{{ install_nexus_repository_web_port_min }}-{{ install_nexus_repository_web_port_max }}:{{ install_nexus_repository_web_port_min }}-{{ install_nexus_repository_web_port_max }}"
     volumes:
       - "{{ install_nexus_repository_data_path }}:/nexus-data"
-    envs:
+    env:
       JAVA_MAX_MEM: "{{ install_nexus_repository_heap }}"
