@@ -1,24 +1,24 @@
 ---
 
-inv_cert_bundles:
-  - name: "My-Local-Ansible-Root-CA.pem.crt"
-    type: "CA"
-    src: "/tmp/My-Local-Ansible-Root-CA.pem.crt"
-
-  - name: "My-Local-Ansible-Intermediate-CA-1.pem.crt"
-    type: "CA"
-    src: "/tmp/My-Local-Ansible-Intermediate-CA-1.pem.crt"
-
-  - name: "My-Local-Ansible-Intermediate-CA-2.pem.crt"
-    type: "CA"
-    src: "/tmp/My-Local-Ansible-Intermediate-CA-2.pem.crt"
-
-  - name: "my-nexus.domain.tld"
-    type: "cert"
-    src: "/tmp/my-nexus.domain.tld.zip"
-    dest: "/etc/nexus/ssl"
-    #src_user: "myUser"
-    #src_password: "secretPassword"
-    dest_user: "root"
-    dest_group: "root"
-    dest_mode: "0700"
+#inv_cert_bundles:
+#  - name: "My-Local-Ansible-Root-CA.pem.crt"
+#    type: "CA"
+#    src: "/tmp/My-Local-Ansible-Root-CA.pem.crt"
+#
+#  - name: "My-Local-Ansible-Intermediate-CA-1.pem.crt"
+#    type: "CA"
+#    src: "/tmp/My-Local-Ansible-Intermediate-CA-1.pem.crt"
+#
+#  - name: "My-Local-Ansible-Intermediate-CA-2.pem.crt"
+#    type: "CA"
+#    src: "/tmp/My-Local-Ansible-Intermediate-CA-2.pem.crt"
+#
+#  - name: "my-nexus.domain.tld"
+#    type: "cert"
+#    src: "/tmp/my-nexus.domain.tld.zip"
+#    dest: "/usr/local/nexus/nexus-3.60.0-02/nexus-3.60.0-02/etc/ssl"
+#    #src_user: "myUser"
+#    #src_password: "secretPassword"
+#    dest_user: "nexus"
+#    dest_group: "nexus"
+#    dest_mode: "0700"

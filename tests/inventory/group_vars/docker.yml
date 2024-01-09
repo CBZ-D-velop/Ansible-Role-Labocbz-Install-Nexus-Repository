@@ -1,0 +1,34 @@
+---
+inv_install_docker: false
+
+inv_install_docker_compose_version: "2.17.2"
+
+#inv_install_docker_insecure_registries:
+#  - "registry.one.domain.tld"
+#  - "registry.two.domain.tld"
+
+inv_install_docker_portainer: false
+#inv_install_docker_portainer_http_port: 9001
+#inv_install_docker_portainer_https_port: 9444
+#inv_install_docker_portainer_agent_port: 8001
+#inv_install_docker_portainer_container_name: "portainer-ce"
+#inv_install_docker_portainer_volume_name: "portainer_data"
+#inv_install_docker_portainer_ssl: true
+#inv_install_docker_portainer_ssl_path: "/etc/docker/ssl/portainer"
+#inv_install_docker_portainer_ssl_cert: "{{ inv_install_docker_portainer_ssl_path }}/my-portainer.domain.tld/my-portainer.domain.tld.pem.crt"
+#inv_install_docker_portainer_ssl_key: "{{ inv_install_docker_portainer_ssl_path }}/my-portainer.domain.tld/my-portainer.domain.tld.pem.key"
+
+inv_install_docker_watchtower: false
+inv_install_docker_watchtower_container_name: "watchtower"
+inv_install_docker_watchtower_poll_interval: 3600
+inv_install_docker_watchtower_cleanup: "true"
+inv_install_docker_watchtower_include_restarting: "true"
+inv_install_docker_watchtower_include_stopped: "true"
+inv_install_docker_watchtower_no_restart: "false"
+
+inv_install_docker_handle_clean: true
+
+inv_install_docker_clean_cron_file: "ansible_docker_system_prune"
+inv_install_docker_clean_weekday: "*"
+inv_install_docker_clean_minute: "*"
+inv_install_docker_clean_hour: "*/8"

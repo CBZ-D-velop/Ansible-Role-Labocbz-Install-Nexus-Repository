@@ -1,1 +1,18 @@
 ---
+- name: "Enable and start Nexus"
+  register: install_nexus_service_status
+  changed_when: not install_nexus_service_status.state != "started"
+  ansible.builtin.service:
+    name: "nexus"
+    state: "started"
+    daemon_reload: true
+    enabled: yes
+
+- name: "Restart Nexus"
+  register: install_nexus_service_status
+  changed_when: not install_nexus_service_status.state != "restarted"
+  ansible.builtin.service:
+    name: "nexus"
+    state: "restarted"
+    daemon_reload: true
+    enabled: yes

@@ -29,7 +29,6 @@
       ansible.builtin.shell: "echo \"{{ hostvars[host]['ansible_default_ipv4']['address'] }}  {{ host }} # from Molecule\" >> /etc/hosts"
 
     #- name: "Import cryptographic content if needed (cert)"
-    #  run_once: yes
     #  loop: "{{ inv_cert_bundles }}"
     #  loop_control:
     #    loop_var: bundle
@@ -42,7 +41,6 @@
     #    mode: 0700
 
     #- name: "Import cryptographic content if needed (CA)"
-    #  run_once: yes
     #  loop: "{{ inv_cert_bundles }}"
     #  loop_control:
     #    loop_var: bundle
@@ -68,8 +66,37 @@
     #    add_certificates_bundle_dest: "{{ bundle.dest }}"
     #    #add_certificates_bundle_src_user: "{{ bundle.src_user }}"
     #    #add_certificates_bundle_src_password: "{{ bundle.src_password }}"
-    #    #add_certificates_bundle_dest_user: "{{ bundle.dest_user }}"
-    #    #add_certificates_bundle_dest_group: "{{ bundle.dest_group }}"
-    #    #add_certificates_bundle_dest_mode: "{{ bundle.dest_mode }}"
+    #    add_certificates_bundle_dest_user: "{{ bundle.dest_user }}"
+    #    add_certificates_bundle_dest_group: "{{ bundle.dest_group }}"
+    #    add_certificates_bundle_dest_mode: "{{ bundle.dest_mode }}"
     #  ansible.builtin.include_role:
     #    name: "labocbz.add_certificates"
+
+    - name: "Include labocbz.install_docker"
+      tags:
+        - "labocbz.install_docker"
+      vars:
+        install_docker_portainer: "{{ inv_install_docker_portainer }}"
+        install_docker_portainer_http_port: "{{ inv_install_docker_portainer_http_port }}"
+        install_docker_portainer_https_port: "{{ inv_install_docker_portainer_https_port }}"
+        install_docker_portainer_agent_port: "{{ inv_install_docker_portainer_agent_port }}"
+        install_docker_portainer_container_name: "{{ inv_install_docker_portainer_container_name }}"
+        install_docker_portainer_volume_name: "{{ inv_install_docker_portainer_volume_name }}"
+        install_docker_portainer_ssl: "{{ inv_install_docker_portainer_ssl }}"
+        install_docker_portainer_ssl_volume_name: "{{ inv_install_docker_portainer_ssl_volume_name }}"
+        install_docker_portainer_ssl_key: "{{ inv_install_docker_portainer_ssl_cert }}"
+        install_docker_watchtower: "{{ inv_install_docker_watchtower }}"
+        install_docker_watchtower_poll_interval: "{{ inv_install_docker_watchtower_poll_interval }}"
+        install_docker_watchtower_cleanup: "{{ inv_install_docker_watchtower_cleanup }}"
+        install_docker_watchtower_include_restarting: "{{ inv_install_docker_watchtower_include_restarting }}"
+        install_docker_watchtower_include_stopped: "{{ inv_install_docker_watchtower_include_stopped }}"
+        install_docker_watchtower_no_restart: "{{ inv_install_docker_watchtower_no_restart }}"
+        install_docker_portainer_address: "{{ inv_install_docker_portainer_address }}"
+        install_docker_handle_clean: "{{ inv_install_docker_handle_clean }}"
+        install_docker_clean_cron_file: "{{ inv_install_docker_clean_cron_file }}"
+        install_docker_clean_weekday: "{{ inv_install_docker_clean_weekday }}"
+        install_docker_clean_minute: "{{ inv_install_docker_clean_minute }}"
+        install_docker_clean_hour: "{{ inv_install_docker_clean_hour }}"
+        install_docker_insecure_registries: "{{ inv_install_docker_insecure_registries }}"
+      ansible.builtin.include_role:
+        name: "labocbz.install_docker"
