@@ -4,7 +4,7 @@
     - name: "Check if nexus-data exist"
       register: nexus_folder
       ansible.builtin.stat:
-        path: "/etc/docker"
+        path: "{{ install_nexus_repository_data_path }}"
 
     - name: "Create nexus-data directory"
       when: not nexus_folder.stat.exists
