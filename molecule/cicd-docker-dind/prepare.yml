@@ -1,7 +1,7 @@
 ---
 # if you have any prepararion task
 - name: "Prepare"
-  hosts: "local"
+  hosts: "cicd-docker-dind"
   gather_facts: true
   tasks:
 
@@ -17,11 +17,11 @@
     - name: "Gather facts from all hosts"
       delegate_to: "{{ item }}"
       delegate_facts: true
-      loop: "{{ groups['local'] }}"
+      loop: "{{ groups['cicd-docker-dind'] }}"
       ansible.builtin.setup:
 
     - name: "Edit /etc/hosts file to add all hosts"
-      loop: "{{ groups['local'] }}"
+      loop: "{{ groups['cicd-docker-dind'] }}"
       loop_control:
         loop_var: host
       register: output

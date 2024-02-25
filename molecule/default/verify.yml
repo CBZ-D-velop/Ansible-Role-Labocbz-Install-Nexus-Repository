@@ -2,6 +2,24 @@
 # Don't forget to keep this file updated
 # molecule/<scenario>/verify.yml
 - name: "Verify"
-  hosts: "all"
+  hosts: "local"
   gather_facts: false
   tasks:
+
+    - name: "Check docker-compose command response"
+      register: output
+      changed_when: output.rc != 0
+      failed_when: output.rc != 0
+      ansible.builtin.command: "docker -v"
+
+    - name: "Check docker-compose command response"
+      register: output
+      changed_when: output.rc != 0
+      failed_when: output.rc != 0
+      ansible.builtin.command: "docker-compose -v"
+
+    - name: "Remove container from all networks: Nexus"
+      docker_container:
+        name: "{{ inv_install_nexus_repository__container_name }}"
+        purge_networks: yes
+        state: absent

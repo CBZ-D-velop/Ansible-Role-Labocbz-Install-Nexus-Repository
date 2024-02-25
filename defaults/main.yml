@@ -1,9 +1,9 @@
 ---
-install_nexus_repository_container_name: "nexus"
-install_nexus_repository_data_path: "/mnt/nexus-data"
-install_nexus_repository_heap: "4096m"
+install_nexus_repository__container_name: "nexus"
+install_nexus_repository__data_path: "/mnt/nexus-data"
+install_nexus_repository__heap: "4096m"
 
-install_nexus_repository_web_address: "0.0.0.0"
-install_nexus_repository_web_port: 8081
-install_nexus_repository_web_port_min: 8082
-install_nexus_repository_web_port_max: 8100
+install_nexus_repository__web_address: "0.0.0.0"
+install_nexus_repository__web_port: 8081
+install_nexus_repository__web_port_min: 8082
+install_nexus_repository__web_port_max: 8100

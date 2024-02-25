@@ -8,25 +8,23 @@ driver:
   name: "docker"
 
 platforms:
-  - name: "molecule-local-instance-1-install-nexus-repository"
-    image: "${NEXUS_ADDRESS}/${DOCKER_IMAGE_DEBIAN_11_ANSIBLE}"
-    command: "/sbin/init"
-    #published_ports:
-    #  - "0.0.0.0:8181:8181/tcp"
-    dockerfile: "Dockerfile"
+  - name: "molecule-cicd-docker-dind-instance-1-install-nexus-repository"
+    image: "${NEXUS_REPOS_DOCKER_REGISTRY}/${DOCKER_IMAGE_DOCKER_DIND_ANSIBLE}"
+    hostname: "molecule-cicd-docker-dind-instance-1-install-nexus-repository"
     privileged: true
     pre_build_image: true
-    override_command: true
+    command: "/sbin/init"
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
     tmpfs:
       - "/run"
       - "/tmp"
-    volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
-      - "/var/lib/containerd:/var/lib/containerd"
     cgroupns_mode: "host"
     cgroup_manager: "cgroupfs"
-    #storage_opt: "overlay.mount_program=/usr/bin/fuse-overlayfs"
-    #storage_driver: "overlay"
+    storage_driver: "overlay2"
+    networks:
+      - name: "molecule-default-install-nexus-repository"
 
 provisioner:
   name: "ansible"
@@ -36,7 +34,7 @@ provisioner:
       group_vars: "../../tests/inventory/group_vars/"
       host_vars: "../../tests/inventory/host_vars/"
   options:
-    extra-vars: "@./../../tests/tower/tower.yml"
+    extra-vars: "@./tests/tower/tower.yml"
   log: ${MOLECULE_ANSIBLE_LOG:-true}
   env:
     ANSIBLE_CONFIG: "../../.ansible.cfg"
@@ -54,7 +52,7 @@ verifier:
   name: "ansible"
 
 scenario:
-  name: "cicd-debian-11"
+  name: "default"
   test_sequence:
     - "destroy"
     - "syntax"
