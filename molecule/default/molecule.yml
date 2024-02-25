@@ -12,16 +12,13 @@ platforms:
     #image: "robincbz/debian-12-ansible:latest"
     image: "robincbz/docker-dind-ansible:latest"
     hostname: "molecule-local-instance-1-install-nexus-repository"
-    #published_ports:
-    #  - "0.0.0.0:9001:9002/tcp"
-    #  - "0.0.0.0:8001:8002/tcp"
-    #  - "0.0.0.0:9444:9445/tcp"
+    published_ports:
+      - "0.0.0.0:8081:8081/tcp"
     privileged: true
     pre_build_image: true
     command: "/sbin/init"
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
-      - "/var/run/docker.sock:/var/run/docker.sock:rw"
     tmpfs:
       - "/run"
       - "/tmp"

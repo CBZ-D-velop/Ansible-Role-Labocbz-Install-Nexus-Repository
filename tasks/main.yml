@@ -16,8 +16,7 @@
         owner: "200"
         group: "200"
 
-- name: "Install Nexus (Debian/Ubuntu)"
-  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+- name: "Install Nexus"
   community.docker.docker_container:
     name: "{{ install_nexus_repository__container_name }}"
     image: "sonatype/nexus3:latest"
@@ -29,23 +28,6 @@
       - "{{ install_nexus_repository__web_address }}:{{ install_nexus_repository__web_port_min }}-{{ install_nexus_repository__web_port_max }}:{{ install_nexus_repository__web_port_min }}-{{ install_nexus_repository__web_port_max }}"
     volumes:
       - "{{ install_nexus_repository__data_path }}:/nexus-data"
-    env:
-      JAVA_MAX_MEM: "{{ install_nexus_repository__heap }}"
-      INSTALL4J_ADD_VM_PARAMS: "-Xms{{ install_nexus_repository__heap }} -Xmx{{ install_nexus_repository__heap }} -XX:MaxDirectMemorySize={{ install_nexus_repository__heap }} -Djava.util.prefs.userRoot=/nexus-data/javaprefs"
-
-- name: "Install Nexus (Docker DIND)"
-  when: not (ansible_distribution == "Ubuntu" or ansible_distribution == "Debian")
-  community.docker.docker_container:
-    name: "{{ install_nexus_repository__container_name }}"
-    image: "sonatype/nexus3:latest"
-    state: "started"
-    recreate: false
-    restart_policy: "always"
-    ports:
-      - "{{ install_nexus_repository__web_address }}:{{ install_nexus_repository__web_port }}:8081"
-      - "{{ install_nexus_repository__web_address }}:{{ install_nexus_repository__web_port_min }}-{{ install_nexus_repository__web_port_max }}:{{ install_nexus_repository__web_port_min }}-{{ install_nexus_repository__web_port_max }}"
-    #volumes:
-    #  - "{{ install_nexus_repository__data_path }}:/nexus-data"
     env:
       JAVA_MAX_MEM: "{{ install_nexus_repository__heap }}"
       INSTALL4J_ADD_VM_PARAMS: "-Xms{{ install_nexus_repository__heap }} -Xmx{{ install_nexus_repository__heap }} -XX:MaxDirectMemorySize={{ install_nexus_repository__heap }} -Djava.util.prefs.userRoot=/nexus-data/javaprefs"
