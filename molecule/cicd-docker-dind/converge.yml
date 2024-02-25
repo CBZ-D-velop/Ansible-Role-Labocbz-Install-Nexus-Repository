@@ -1,6 +1,6 @@
 ---
 - name: "Converge"
-  hosts: "local"
+  hosts: "cicd-docker-dind"
   tasks:
 
     - name: "Include labocbz.install_nexus_repository"

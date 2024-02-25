@@ -1,12 +1,9 @@
 ---
 - name: "labocbz.prepare_host"
   src: "https://github.com/CBZ-D-velop/Ansible-Role-Labocbz-Prepare-Host.git"
-  version: "2.1"
 
 - name: "labocbz.add_certificates"
   src: "https://github.com/CBZ-D-velop/Ansible-Role-Labocbz-Add-Certificates.git"
-  version: "2.0"
 
 - name: "labocbz.install_docker"
   src: "https://github.com/CBZ-D-velop/Ansible-Role-Labocbz-Install-Docker.git"
-  version: "6.0"

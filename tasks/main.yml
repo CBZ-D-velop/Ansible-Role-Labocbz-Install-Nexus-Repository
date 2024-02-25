@@ -4,30 +4,30 @@
     - name: "Check if nexus-data exist"
       register: nexus_folder
       ansible.builtin.stat:
-        path: "{{ install_nexus_repository_data_path }}"
+        path: "{{ install_nexus_repository__data_path }}"
 
     - name: "Create nexus-data directory"
       when: not nexus_folder.stat.exists
       ansible.builtin.file:
-        path: "{{ install_nexus_repository_data_path }}"
+        path: "{{ install_nexus_repository__data_path }}"
         state: directory
         recurse: yes
         mode: "0700"
-        owner: "root"
-        group: "root"
+        owner: "200"
+        group: "200"
 
 - name: "Install Nexus"
   community.docker.docker_container:
-    name: "{{ install_nexus_repository_container_name }}"
+    name: "{{ install_nexus_repository__container_name }}"
     image: "sonatype/nexus3:latest"
     state: "started"
     recreate: false
     restart_policy: "always"
     ports:
-      - "{{ install_nexus_repository_web_address }}:{{ install_nexus_repository_web_port }}:8081"
-      - "{{ install_nexus_repository_web_address }}:{{ install_nexus_repository_web_port_min }}-{{ install_nexus_repository_web_port_max }}:{{ install_nexus_repository_web_port_min }}-{{ install_nexus_repository_web_port_max }}"
+      - "{{ install_nexus_repository__web_address }}:{{ install_nexus_repository__web_port }}:8081"
+      - "{{ install_nexus_repository__web_address }}:{{ install_nexus_repository__web_port_min }}-{{ install_nexus_repository__web_port_max }}:{{ install_nexus_repository__web_port_min }}-{{ install_nexus_repository__web_port_max }}"
     volumes:
-      - "{{ install_nexus_repository_data_path }}:/nexus-data"
+      - "{{ install_nexus_repository__data_path }}:/nexus-data"
     env:
-      JAVA_MAX_MEM: "{{ install_nexus_repository_heap }}"
-      INSTALL4J_ADD_VM_PARAMS: "-Xms{{ install_nexus_repository_heap }} -Xmx{{ install_nexus_repository_heap }} -XX:MaxDirectMemorySize={{ install_nexus_repository_heap }} -Djava.util.prefs.userRoot=/nexus-data/javaprefs"
+      JAVA_MAX_MEM: "{{ install_nexus_repository__heap }}"
+      INSTALL4J_ADD_VM_PARAMS: "-Xms{{ install_nexus_repository__heap }} -Xmx{{ install_nexus_repository__heap }} -XX:MaxDirectMemorySize={{ install_nexus_repository__heap }} -Djava.util.prefs.userRoot=/nexus-data/javaprefs"

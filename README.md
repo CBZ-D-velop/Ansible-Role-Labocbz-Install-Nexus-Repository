@@ -103,14 +103,14 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-install_nexus_repository_container_name: "nexus"
-install_nexus_repository_data_path: "/mnt/nexus-data"
-install_nexus_repository_heap: "4096m"
+install_nexus_repository__container_name: "nexus"
+install_nexus_repository__data_path: "/mnt/nexus-data"
+install_nexus_repository__heap: "4096m"
 
-install_nexus_repository_web_address: "0.0.0.0"
-install_nexus_repository_web_port: 8081
-install_nexus_repository_web_port_min: 8082
-install_nexus_repository_web_port_max: 8100
+install_nexus_repository__web_address: "0.0.0.0"
+install_nexus_repository__web_port: 8081
+install_nexus_repository__web_port_min: 8082
+install_nexus_repository__web_port_max: 8100
 
 ```
 
@@ -123,14 +123,14 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-inv_install_nexus_repository_container_name: "nexus"
-inv_install_nexus_repository_data_path: "/mnt/nexus-data"
-inv_install_nexus_repository_heap: "4096m"
+inv_install_nexus_repository__container_name: "nexus"
+inv_install_nexus_repository__data_path: "/mnt/nexus-data"
+inv_install_nexus_repository__heap: "4096m"
 
-inv_install_nexus_repository_web_address: "0.0.0.0"
-inv_install_nexus_repository_web_port: 8081
-inv_install_nexus_repository_web_port_min: 8082
-inv_install_nexus_repository_web_port_max: 8100
+inv_install_nexus_repository__web_address: "0.0.0.0"
+inv_install_nexus_repository__web_port: 8081
+inv_install_nexus_repository__web_port_min: 8082
+inv_install_nexus_repository__web_port_max: 8100
 
 ```
 
@@ -149,13 +149,13 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
   tags:
     - "labocbz.install_nexus_repository"
   vars:
-    inv_install_nexus_repository_container_name: "{{ inv_install_nexus_repository_container_name }}"
-    inv_install_nexus_repository_data_path: "{{ inv_install_nexus_repository_data_path }}"
-    inv_install_nexus_repository_heap: "{{ inv_install_nexus_repository_heap }}"
-    inv_install_nexus_repository_web_address: "{{ inv_install_nexus_repository_web_address }}"
-    inv_install_nexus_repository_web_port: "{{ inv_install_nexus_repository_web_port }}"
-    inv_install_nexus_repository_web_port_min: "{{ inv_install_nexus_repository_web_port_min }}"
-    inv_install_nexus_repository_web_port_max: "{{ inv_install_nexus_repository_web_port_max }}"
+    inv_install_nexus_repository__container_name: "{{ inv_install_nexus_repository__container_name }}"
+    inv_install_nexus_repository__data_path: "{{ inv_install_nexus_repository__data_path }}"
+    inv_install_nexus_repository__heap: "{{ inv_install_nexus_repository__heap }}"
+    inv_install_nexus_repository__web_address: "{{ inv_install_nexus_repository__web_address }}"
+    inv_install_nexus_repository__web_port: "{{ inv_install_nexus_repository__web_port }}"
+    inv_install_nexus_repository__web_port_min: "{{ inv_install_nexus_repository__web_port_min }}"
+    inv_install_nexus_repository__web_port_max: "{{ inv_install_nexus_repository__web_port_max }}"
   ansible.builtin.include_role:
     name: "labocbz.install_nexus_repository"
 ```
@@ -184,6 +184,13 @@ Here you can put your change to keep a trace of your work and decisions.
 * Role create a path, with root permissions, maybe use an user ?
 * Role expose default web UI (8081) but you can define a custom port / address
 * Role expose a range with port to expose you repositories, with custom address to
+
+### 2024-02-24: Fix and CI
+
+* Added support for new CI base
+* Edit all vars with __
+* Tested and validated on Docker DIND (no binding)
+* Removed docker socket local with ports
 
 ## Authors
 

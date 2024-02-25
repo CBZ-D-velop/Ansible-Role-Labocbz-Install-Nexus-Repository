@@ -1,0 +1,9 @@
+---
+inv_install_nexus_repository__container_name: "nexus"
+inv_install_nexus_repository__data_path: "/mnt/nexus-data"
+inv_install_nexus_repository__heap: "4096m"
+
+inv_install_nexus_repository__web_address: "0.0.0.0"
+inv_install_nexus_repository__web_port: 8081
+inv_install_nexus_repository__web_port_min: 8082
+inv_install_nexus_repository__web_port_max: 8100
