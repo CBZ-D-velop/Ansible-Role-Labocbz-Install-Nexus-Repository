@@ -33,11 +33,11 @@ provisioner:
       group_vars: "../../tests/inventory/group_vars/"
       host_vars: "../../tests/inventory/host_vars/"
   options:
-    extra-vars: "@./tests/tower/tower.yml"
+    extra-vars: "@./../../tests/tower/tower.yml"
   log: ${MOLECULE_ANSIBLE_LOG:-true}
   env:
     ANSIBLE_CONFIG: "../../.ansible.cfg"
-    ANSIBLE_FORCE_COLOR: "True"
+    ANSIBLE_FORCE_COLOR: "true"
     # disable nologs
     MOLECULE_NOLOG: 0
     # disable destroy

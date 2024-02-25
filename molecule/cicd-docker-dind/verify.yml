@@ -18,34 +18,9 @@
       failed_when: output.rc != 0
       ansible.builtin.command: "docker-compose -v"
 
-    - name: "Check Docker insecure registries"
-      when: inv_install_docker__insecure_registries is defined
-      block:
-        - name: "Check Docker registries file"
-          register: file_check
-          failed_when: not file_check.stat.exists
-          ansible.builtin.stat:
-            path: "/etc/docker/daemon.json"
-
-        - name: "Check if insecure registries are in the /etc/docker/daemon.json file"
-          loop: "{{ inv_install_docker__insecure_registries }}"
-          loop_control:
-            loop_var: registry
-          register: registry_state
-          failed_when: registry_state.rc != 0
-          changed_when: registry_state.rc != 0
-          ansible.builtin.command: "grep -q {{ registry }} /etc/docker/daemon.json"
-
-    - name: "Remove container from all networks: Portainer"
-      when: inv_install_docker__portainer | default(false)
-      docker_container:
-        name: "{{ inv_install_docker__portainer_container_name }}"
-        purge_networks: yes
-        state: absent
-
-    - name: "Remove container from all networks: Watchtower"
-      when: inv_install_docker__watchtower | default(false)
-      docker_container:
-        name: "{{ inv_install_docker__watchtower_container_name }}"
-        purge_networks: yes
-        state: absent
+    - name: "Check Nexus HTTP URL"
+      register: result
+      failed_when: result.status != 200
+      ansible.builtin.uri:
+        url: "http://{{ inventory_hostname }}:{{ inv_install_nexus_repository__web_port }}/"
+        method: "GET"

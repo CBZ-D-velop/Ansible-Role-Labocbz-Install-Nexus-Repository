@@ -18,8 +18,9 @@
       failed_when: output.rc != 0
       ansible.builtin.command: "docker-compose -v"
 
-    - name: "Remove container from all networks: Nexus"
-      docker_container:
-        name: "{{ inv_install_nexus_repository__container_name }}"
-        purge_networks: yes
-        state: absent
+    - name: "Check Nexus HTTP URL"
+      register: result
+      failed_when: result.status != 200
+      ansible.builtin.uri:
+        url: "http://{{ inventory_hostname }}:{{ inv_install_nexus_repository__web_port }}/"
+        method: "GET"
