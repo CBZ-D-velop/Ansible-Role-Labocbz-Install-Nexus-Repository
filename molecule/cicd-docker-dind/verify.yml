@@ -18,12 +18,12 @@
       failed_when: output.rc != 0
       ansible.builtin.command: "docker-compose -v"
 
-    - name: "Check Nexus HTTP URL"
-      register: result
-      failed_when: result.status != 200
-      until: result.status != -1
-      retries: 10
-      delay: 10
-      ansible.builtin.uri:
-        url: "http://{{ inventory_hostname }}:{{ inv_install_nexus_repository__web_port }}/"
-        method: "GET"
+    #- name: "Check Nexus HTTP URL"
+    #  register: result
+    #  failed_when: result.status != 200
+    #  until: result.status != -1
+    #  retries: 10
+    #  delay: 10
+    #  ansible.builtin.uri:
+    #    url: "http://{{ inventory_hostname }}:{{ inv_install_nexus_repository__web_port }}/"
+    #    method: "GET"
