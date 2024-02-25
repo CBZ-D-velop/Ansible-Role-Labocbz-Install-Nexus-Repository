@@ -52,7 +52,7 @@ verifier:
   name: "ansible"
 
 scenario:
-  name: "default"
+  name: "cicd-docker-dind"
   test_sequence:
     - "destroy"
     - "syntax"
