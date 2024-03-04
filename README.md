@@ -149,13 +149,13 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
   tags:
     - "labocbz.install_nexus_repository"
   vars:
-    inv_install_nexus_repository__container_name: "{{ inv_install_nexus_repository__container_name }}"
-    inv_install_nexus_repository__data_path: "{{ inv_install_nexus_repository__data_path }}"
-    inv_install_nexus_repository__heap: "{{ inv_install_nexus_repository__heap }}"
-    inv_install_nexus_repository__web_address: "{{ inv_install_nexus_repository__web_address }}"
-    inv_install_nexus_repository__web_port: "{{ inv_install_nexus_repository__web_port }}"
-    inv_install_nexus_repository__web_port_min: "{{ inv_install_nexus_repository__web_port_min }}"
-    inv_install_nexus_repository__web_port_max: "{{ inv_install_nexus_repository__web_port_max }}"
+    install_nexus_repository__container_name: "{{ inv_install_nexus_repository__container_name }}"
+    install_nexus_repository__data_path: "{{ inv_install_nexus_repository__data_path }}"
+    install_nexus_repository__heap: "{{ inv_install_nexus_repository__heap }}"
+    install_nexus_repository__web_address: "{{ inv_install_nexus_repository__web_address }}"
+    install_nexus_repository__web_port: "{{ inv_install_nexus_repository__web_port }}"
+    install_nexus_repository__web_port_min: "{{ inv_install_nexus_repository__web_port_min }}"
+    install_nexus_repository__web_port_max: "{{ inv_install_nexus_repository__web_port_max }}"
   ansible.builtin.include_role:
     name: "labocbz.install_nexus_repository"
 ```
