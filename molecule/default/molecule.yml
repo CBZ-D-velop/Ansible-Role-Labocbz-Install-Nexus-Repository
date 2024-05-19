@@ -9,7 +9,7 @@ driver:
 
 platforms:
   - name: "molecule-local-instance-1-install-nexus-repository"
-    #image: "robincbz/debian-12-ansible:latest"
+    #image: "labocbz/ansibletest-debian-12:latest"
     image: "robincbz/docker-dind-ansible:latest"
     hostname: "molecule-local-instance-1-install-nexus-repository"
     published_ports:
@@ -37,7 +37,7 @@ provisioner:
       host_vars: "../../tests/inventory/host_vars/"
   options:
     extra-vars: "@./tests/tower/tower.yml"
-  log: ${MOLECULE_ANSIBLE_LOG:-true}
+  log: true
   env:
     ANSIBLE_CONFIG: "../../.ansible.cfg"
     ANSIBLE_FORCE_COLOR: "True"
