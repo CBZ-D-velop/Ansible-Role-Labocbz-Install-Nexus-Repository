@@ -10,7 +10,7 @@ driver:
 platforms:
   - name: "molecule-local-instance-1-install-nexus-repository"
     #image: "labocbz/ansibletest-debian-12:latest"
-    image: "robincbz/docker-dind-ansible:latest"
+    image: "labocbz/ansibletest-docker-dind:latest"
     hostname: "molecule-local-instance-1-install-nexus-repository"
     published_ports:
       - "0.0.0.0:8081:8081/tcp"
