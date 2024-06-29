@@ -48,7 +48,6 @@ variables:
     - "docker login -u \"$GITLAB_CI_NEXUS_CREDENTIALS_USR\" -p \"$GITLAB_CI_NEXUS_CREDENTIALS_PSW\" \"http://$NEXUS_DOCKER_GROUP_REGISTRY\""
     - "python3 -m compileall /usr/lib/python3 -qq"
     - "cp ./.ansible.cfg /root/.ansible.cfg"
-
     - "[ -f \"./molecule/$SCENARIO/requirements.yml\" ] && ansible-galaxy install -r ./molecule/$SCENARIO/requirements.yml --roles-path=./molecule/$SCENARIO/roles"
   script:
     - "molecule test --scenario-name $SCENARIO"
@@ -59,6 +58,7 @@ variables:
     - "lint:yaml"
     #- "lint:jinja"
     - "lint:ansible"
+    - "lint:markdown"
 
 ###############################################################################
 #################### CICD
@@ -73,7 +73,6 @@ include:
 lint:yaml:
   stage: lint
   image: $NEXUS_DOCKER_GROUP_REGISTRY/$DOCKER_IMAGE__LINT_YAML
-
   script:
     - yamllint --list-files ./
     - yamllint -c ./.yamllint ./
@@ -93,7 +92,6 @@ lint:yaml:
 lint:ansible:
   stage: lint
   image: $NEXUS_DOCKER_GROUP_REGISTRY/$DOCKER_IMAGE__LINT_ANSIBLE
-
   script:
     - ansible-lint --config=./.ansible-lint --exclude molecule --exclude tests ./*
   allow_failure: false
@@ -117,7 +115,7 @@ lint:markdown:
 #  rules:
 #    - if: '$CI_COMMIT_MESSAGE=~/^[^Merge]/ && $CI_COMMIT_BRANCH == "develop"'
 
-molecule_test_docker_dind:
+molecule:test-docker-dind:
   <<: *molecule_test
   variables:
     SCENARIO: "cicd-docker-dind"
